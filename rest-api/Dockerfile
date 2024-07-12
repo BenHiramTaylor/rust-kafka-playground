@@ -1,11 +1,21 @@
-FROM rust:1.79 AS builder
+FROM rust:1.74.0
 
 WORKDIR /usr/src/app
-COPY . .
+
+# Install any necessary dependencies
+# Replace 'your-dependencies' with actual package names your app needs
+RUN apt-get update && \
+    apt-get install -y your-dependencies && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy the Cargo.toml and Cargo.lock files
+COPY Cargo.toml Cargo.lock ./
+
+# Copy the source code
+COPY src ./src
+
+# Build the application
 RUN cargo build --release
 
-FROM debian:bullseye-slim
-RUN apt-get update && apt-get install -y extra-runtime-dependencies && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /usr/src/app/target/release/rest-api /usr/local/bin/rest-api
-
-CMD ["rest-api"]
+# Set the startup command
+CMD ["./target/release/rest-api"]
