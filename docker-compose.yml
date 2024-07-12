@@ -32,11 +32,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    env_file:
-      - .env
     depends_on:
       - db
       - kafka
+    env_file:
+      - .env
 
   consumer:
     build:
