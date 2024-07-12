@@ -55,11 +55,9 @@ async fn handle_name(
 async fn main() -> Result<(), anyhow::Error>  {
     dotenv::dotenv().ok();
 
-    let db_username = std::env::var("DB_USERNAME")?;
-    let db_password = std::env::var("DB_PASSWORD")?;
+    let db_url= std::env::var("DATABASE_URL")?;
 
     // Database connection
-    let db_url = format!("postgres://{}:{}@localhost/postgres", db_username, db_password);
     let db_pool = PgPool::connect(&db_url).await?;
 
     // Kafka producer
