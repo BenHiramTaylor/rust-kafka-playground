@@ -53,7 +53,7 @@ async fn handle_name(
 }
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error>  {
-    env_logger::init();
+    dotenv::dotenv().ok();
 
     let db_username = std::env::var("DB_USERNAME")?;
     let db_password = std::env::var("DB_PASSWORD")?;
