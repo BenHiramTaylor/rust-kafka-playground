@@ -7,6 +7,7 @@ COPY Cargo.toml Cargo.lock ./
 
 # Copy the source code
 COPY src ./src
+COPY .sqlx ./
 
 # Build the application
 RUN cargo build --release
