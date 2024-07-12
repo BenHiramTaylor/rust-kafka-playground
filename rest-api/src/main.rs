@@ -53,6 +53,7 @@ async fn handle_name(
 }
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error>  {
+    env_logger::init();
     dotenv::dotenv().ok();
 
     let db_url= std::env::var("DATABASE_URL")?;
